@@ -4,13 +4,11 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Login</title>
-    <link href="css/login.css" rel="stylesheet">
+    <title>Registro</title>
+    <link href="css/registro.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-</head>
-<body>
     <div class="contenedor">
         <div class="img">
             <img src="img/logo.png" alt="logo">
@@ -20,17 +18,29 @@
                 <ul>
                     <div class="title">
                         <li>
-                            <h1>Iniciar Sesión</h1>
+                            <h1>Crea una cuenta</h1>
                         </li>
-                    </div>
+                    </div>   
                     <div class="input">
+                        <li>
+                            <label for="nombre"></label>
+                            <input type="text" name="nombre" placeholder="Nombre">
+                        </li>
                         <li>
                             <label for="usuario"></label>
                             <input type="text" name="usuario" placeholder="Usuario">
                         </li>
                         <li>
+                            <label for="email"></label>
+                            <input type="email" name="email" placeholder="E-Mail">
+                        </li>
+                        <li>
                             <label for="password"></label>
                             <input type="password" name="password" placeholder="Contraseña">
+                        </li>
+                        <li>
+                            <label for="cpassword"></label>
+                            <input type="password" name="cpassword" placeholder="Confirmar Contraseña">
                         </li>
                     </div>
                     <div class="submit">
@@ -38,12 +48,15 @@
                             <button class="button" type="submit">Enviar</button>
                         </li>
                         <li>
-                            <p>¿No te has registrado? <a href="/Registro.html">Crear una cuenta</a></p>
+                            <p>¿Ya tienes una cuenta? <a href="/Login.html">Inicia sesión</a></p>
                         </li>
                     </div>
                 </ul>
             </form>
         </div>
     </div>
+</head>
+<body>
+    
 </body>
 </html>
