@@ -1,0 +1,80 @@
+body {
+    background-color: #15172b;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    margin: 0 auto;
+}
+
+/* Menú */
+div.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: gray;
+}
+div.logo img{
+    width: 100px;
+}
+ul{
+    list-style-type: none;
+    display:flex;
+}
+div.menu ul a{
+    text-decoration: none;
+    color: black;
+    padding: 1em;
+    background-color: gray;
+    font-weight: bold;
+}
+div.menu ul a:hover{
+    opacity: 0.6;
+}
+div.login button{
+    padding: 0.6em;
+    background-color: #15172b;
+    border-radius: 0.7em;
+}
+div.login button:hover{
+    opacity: 0.9;
+}
+div.login ul a{
+    text-decoration: none;
+    color:white;
+}
+div.login li{
+    padding-right: 0.5em;
+}
+
+/* Cuerpo */
+div.content{
+    margin-top: 50px;
+}
+div.content h1{
+    color: white;
+    text-align:center
+}
+
+/* Pie de página */
+div.footer{
+    background-color:grey;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline
+}
+div.footer ul{
+    display: flex;
+    flex-direction: column;
+}
+div.footer a{
+    text-decoration: none;
+    color: black;
+}
+div.copy p{
+    font-weight: bold
+}
+
+div.rrss a{
+    display: flex;
+    justify-content: center;
+}
