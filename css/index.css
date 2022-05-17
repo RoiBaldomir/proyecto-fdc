@@ -36,7 +36,7 @@ div.login button{
     border-radius: 0.7em;
 }
 div.login button:hover{
-    opacity: 0.9;
+    opacity: 0.8;
 }
 div.login ul a{
     text-decoration: none;
@@ -60,7 +60,7 @@ div.footer{
     background-color:grey;
     display: flex;
     justify-content: space-around;
-    align-items: baseline
+    align-items: baseline;
 }
 div.footer ul{
     display: flex;
@@ -73,8 +73,22 @@ div.footer a{
 div.copy p{
     font-weight: bold
 }
-
-div.rrss a{
+div.links a:hover{
+    opacity: 0.6;
+}
+div.rrss{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content:baseline;
+}
+div.rrss div.rrsslinks{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+div.rrss div.rrsslinks a:hover{
+    opacity: 0.5;
+}
+div.rrss div.rrsslinks a{
+    padding-bottom: 20px;
 }
