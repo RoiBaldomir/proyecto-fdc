@@ -1,0 +1,151 @@
+body {
+    background-color: #15172b;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    margin: 0 auto;
+}
+
+/* Menú */
+div.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: gray;
+}
+div.logo img{
+    width: 100px;
+}
+div.menu ul{
+    list-style-type: none;
+    display:flex;
+}
+div.login ul{
+    list-style-type: none;
+    display:flex;
+}
+div.menu ul a{
+    text-decoration: none;
+    color: black;
+    padding: 1em;
+    background-color: gray;
+    font-weight: bold;
+}
+div.menu ul a:hover{
+    opacity: 0.6;
+}
+div.login button{
+    padding: 0.6em;
+    background-color: #15172b;
+    border-radius: 0.7em;
+    color:lightgray;
+}
+div.login button:hover{
+    opacity: 0.8;
+}
+div.login ul a{
+    text-decoration: none;
+    color:white;
+}
+div.login li{
+    padding-right: 0.5em;
+}
+
+/* Cuerpo */
+div.content h1{
+    margin-top: 50px;
+    text-align: center;
+    color: lightgray;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+}
+div.content p.mensaje{
+    color: lightgray;
+    margin-left: 100px;
+    margin-right: 100px;
+    text-align:justify;
+    line-height: 1.5em;
+    text-align: center;
+    margin-bottom: 80px;
+}
+.form li{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content:center;
+}
+.form li + li{
+    margin-top: 2em;
+}
+.form > li > label{
+    flex: 1 0 120px;
+    max-width: 70px;
+    color: lightgray;
+}
+.form li input{
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #303245;
+    color:lightgray
+}
+.form li textarea{
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #303245;
+    color:lightgray
+}
+.form li button{
+    margin:auto;
+    padding: 10px 20px;
+    border: none;
+    background: #333;
+    color: #f2f2f2;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    border-radius: 2px;
+    margin-bottom: 100px;
+    border-radius: 15px;
+}
+.form li button:hover{
+    opacity: 0.8;
+}
+/* Pie de página */
+div.footer{
+    background-color:grey;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+div.footer ul{
+    display: flex;
+    flex-direction: column;
+}
+div.footer a{
+    text-decoration: none;
+    color: black;
+}
+div.copy p{
+    font-weight: bold
+}
+div.links a:hover{
+    opacity: 0.6;
+}
+div.rrss{
+    display: flex;
+    flex-direction: column;
+    justify-content:baseline;
+}
+div.rrss div.rrsslinks{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+div.rrss div.rrsslinks a:hover{
+    opacity: 0.5;
+}
+div.rrss div.rrsslinks a{
+    padding-bottom: 20px;
+}
+div.links ul{
+    list-style-type: none;
+}
