@@ -57,7 +57,7 @@ div.content h1{
     text-align: center;
     color: lightgray;
     text-transform: uppercase;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 div.content p.mensaje{
     color: lightgray;
@@ -66,47 +66,76 @@ div.content p.mensaje{
     text-align:justify;
     line-height: 1.5em;
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 40px;
 }
-.form li{
+div.label1{
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content:center;
+    justify-content: center;
+    margin-bottom: 15px;
+    color:lightgray;
 }
-.form li + li{
-    margin-top: 2em;
+div.label2{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    color:lightgray;
 }
-.form > li > label{
-    flex: 1 0 120px;
-    max-width: 70px;
-    color: lightgray;
+div.label3{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    color:lightgray;
 }
-.form li input{
+div.textarealabel{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    color:lightgray;
+}
+div.input1{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+div.input2{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+div.input3{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+div.textarea{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+div.button{
+    display: flex;
+    justify-content: center;
+}
+input{
     padding: 10px;
-    border-radius: 15px;
     background-color: #303245;
     color:lightgray
 }
-.form li textarea{
+textarea{
     padding: 10px;
-    border-radius: 15px;
     background-color: #303245;
     color:lightgray
 }
-.form li button{
-    margin:auto;
+div.button button{
     padding: 10px 20px;
     border: none;
     background: #333;
     color: #f2f2f2;
     text-transform: uppercase;
     letter-spacing: .09em;
-    border-radius: 2px;
     margin-bottom: 100px;
-    border-radius: 15px;
 }
-.form li button:hover{
+div.button button:hover{
     opacity: 0.8;
 }
 /* Pie de página */
@@ -115,6 +144,9 @@ div.footer{
     display: flex;
     justify-content: space-around;
     align-items: baseline;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 div.footer ul{
     display: flex;
