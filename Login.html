@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="js/login.js"></script>
 </head>
 <body>
     <div class="contenedor">
@@ -16,7 +17,7 @@
             <a href="Index.html"><img src="img/logo.png" alt="logo"></a>
         </div>
         <div class="form">
-            <form action="login.php" method="post">
+            <form action="login.php" method="post" id="form">
                 <ul>
                     <div class="title">
                         <li>
@@ -26,11 +27,11 @@
                     <div class="input">
                         <li>
                             <label for="usuario"></label>
-                            <input type="text" name="usuario" placeholder="Usuario">
+                            <input type="text" name="usuario" placeholder="Usuario" id="usuario">
                         </li>
                         <li>
                             <label for="password"></label>
-                            <input type="password" name="password" placeholder="Contraseña">
+                            <input type="password" name="password" placeholder="Contraseña" id="password">
                         </li>
                     </div>
                     <div class="submit">

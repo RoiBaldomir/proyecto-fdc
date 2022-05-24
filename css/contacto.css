@@ -119,7 +119,8 @@ div.button{
 input{
     padding: 10px;
     background-color: #303245;
-    color:lightgray
+    color:lightgray;
+    border: 1px solid gray;
 }
 textarea{
     padding: 10px;
