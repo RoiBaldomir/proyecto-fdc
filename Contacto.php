@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+    include_once __DIR__ . "/db/db_connection.php";
+?>
+
 <html lang="es-ES">
 <head>
     <meta charset="UTF-8"/>
@@ -8,7 +12,7 @@
     <link rel="stylesheet" href="css/contacto.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <script src="js/contacto.js"></script>
+    <!-- <script src="js/contacto.js"></script> -->
 </head>
 <body>
     <div class="header">
@@ -21,7 +25,7 @@
                     <li><a href="Index.php">Principal</a></li>
                 </div>
                 <div>
-                    <li><a href="#">Mis Juegos</a></li>
+                    <li><a href="My_games.php">Mis Juegos</a></li>
                 </div>
                 <div>
                     <li><a href="Contacto.php">Contacto</a></li>
@@ -68,12 +72,24 @@
                 <label for="mensaje">Mensaje*</label>
             </div>
             <div class="textarea">
-                <textarea rows="6" cols="55" id="mensaje" placeholder="Escribe un mensaje*"></textarea>
+                <textarea rows="6" cols="55" name="mensaje" id="mensaje" placeholder="Escribe un mensaje*"></textarea>
             </div>
             <div class="button">
-                <button type="submit">Enviar</button>
+                <button type="submit" name="contacto">Enviar</button>
             </div>
-        </form> 
+            <div>
+            <?php
+                if (isset($_POST['contacto'])) {
+                    $name = $_POST['nombre'];
+                    $email = $_POST['correo'];
+                    $subject = $_POST['asunto'];
+                    $message = $_POST['mensaje'];
+                    $consulta = $db->query("INSERT INTO tContact (name, email, subject, message) VALUES ('$name', '$email', '$subject', '$message')");
+                    echo '<p style="color: lightgray; text-align: center">!Mensaje enviado!, recibiras la respuesta en tu correo lo antes posible.</p>';
+                }
+            ?>
+            </div>       
+        </form>
     </div>
     <div class="footer">
         <div class="copy"> 
