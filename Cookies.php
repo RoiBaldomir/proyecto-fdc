@@ -20,7 +20,7 @@
                     <li><a href="Index.php">Principal</a></li>
                 </div>
                 <div>
-                    <li><a href="#">Mis Juegos</a></li>
+                    <li><a href="My_games.php">Mis Juegos</a></li>
                 </div>
                 <div>
                     <li><a href="Contacto.php">Contacto</a></li>
