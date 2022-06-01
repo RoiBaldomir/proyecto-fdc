@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es-ES">
 <?php
-    include_once __DIR__ . "/db/db_connection.php";
+    include_once __DIR__ . "/db/db_connection.php"; //Se importa el archivo para permitir la conexión a la base de datos
 ?>
 <head>
     <meta charset="UTF-8"/>
@@ -48,12 +48,180 @@
     <h1>Mis Juegos</h1>
     <h2>Completados</h2>
     <hr>
+    <?php
+        $consulta = $db->prepare("SELECT * FROM tFavGames WHERE type = :tipo;"); // Consulta para mostrar los juegos completados
+        $consulta->execute([':tipo' => 'C']); //Se ejecuta con una sentencia preparada
+        $videojuegos = $consulta->fetchAll(PDO::FETCH_OBJ); //Devuelve todos los juegos completados
+    ?>
+    <div class="videogames">
+        <?php
+            foreach ($videojuegos as $videojuego){ ?>
+            <div class="videogame">
+                <div class="img">
+                    <img src="/img/games/<?php echo $videojuego->id ?>.jpg" alt="imgGame">
+                </div>
+                <div class="name">
+                    <p><b>Nombre: </b><?php echo $videojuego->name ?></p>
+                </div>
+                <div class="genre">
+                    <p><b>Género: </b><?php echo $videojuego->genre ?></p>
+                </div>
+                <div class="release">
+                    <p><b>Año de lanzamiento: </b><?php echo $videojuego->release_year ?></p>
+                </div>
+                <div class="developer">
+                    <p><b>Desarrollador: </b><?php echo $videojuego->developer ?></p>
+                </div>
+                <div class="platforms">
+                    <p><b>Plataformas: </b><?php echo $videojuego->platforms ?></p>
+                </div>
+                <div class="button">
+                    <form method="post">';
+                        <input type="submit" name="eliminar<?php echo $videojuego->id ?>" class="delete" value="Eliminar de la lista"/>';
+                    </form>
+                </div>
+                <?php
+                    if (isset($_POST['eliminar'.$videojuego->id])) {
+                        $consulta = $db->prepare("DELETE FROM tFavGames WHERE id = ? AND type = ? "); //Sentencia para eliminar el juego de la lista
+                        $consulta->execute([$videojuego->id, 'C']); //Se ejecuta con una sentencia preparada
+                        header('location: My_games.php'); //Recarga la página para guardar los cambios
+                    }
+                ?>
+            </div>
+        <?php } ?>
+        </div>
     <h2>En progreso</h2>
     <hr>
+    <?php
+        $consulta = $db->query("SELECT * FROM tFavGames WHERE type = :tipo ;"); // Consulta para mostrar los juegos en progreso
+        $consulta->execute([':tipo' => 'IP']); //Se ejecuta con una sentencia preparada
+        $videojuegos = $consulta->fetchAll(PDO::FETCH_OBJ); //Devuelve todos los juegos en progreso
+    ?>
+    <div class="videogames">
+        <?php
+            foreach ($videojuegos as $videojuego){ ?>
+            <div class="videogame">
+                <div class="img">
+                    <img src="/img/games/<?php echo $videojuego->id ?>.jpg" alt="imgGame">
+                </div>
+                <div class="name">
+                    <p><b>Nombre: </b><?php echo $videojuego->name ?></p>
+                </div>
+                <div class="genre">
+                    <p><b>Género: </b><?php echo $videojuego->genre ?></p>
+                </div>
+                <div class="release">
+                    <p><b>Año de lanzamiento: </b><?php echo $videojuego->release_year ?></p>
+                </div>
+                <div class="developer">
+                    <p><b>Desarrollador: </b><?php echo $videojuego->developer ?></p>
+                </div>
+                <div class="platforms">
+                    <p><b>Plataformas: </b><?php echo $videojuego->platforms ?></p>
+                </div>
+                <div class="button">
+                    <form method="post">';
+                        <input type="submit" name="eliminar<?php echo $videojuego->id ?>" class="delete" value="Eliminar de la lista"/>';
+                    </form>
+                </div>
+                <?php
+                    if (isset($_POST['eliminar'.$videojuego->id])) {
+                        $consulta = $db->prepare("DELETE FROM tFavGames WHERE id = ? AND type = ? "); //Sentencia para eliminar el juego de la lista
+                        $consulta->execute([$videojuego->id, 'IP']); //Se ejecuta con una sentencia preparada
+                        header('location: My_games.php'); //Recarga la página para guardar los cambios
+                    }
+                ?>
+            </div>
+        <?php } ?>
+        </div>
     <h2>Pendientes de jugar</h2>
     <hr>
+    <?php
+        $consulta = $db->query("SELECT * FROM tFavGames WHERE type = :tipo ;"); // Consulta para mostrar los juegos pendientes de jugar
+        $consulta->execute([':tipo' => 'H']); //Se ejecuta con una sentencia preparada
+        $videojuegos = $consulta->fetchAll(PDO::FETCH_OBJ); //Devuelve todos los juegos pendientes de jugar
+    ?>
+    <div class="videogames">
+        <?php
+            foreach ($videojuegos as $videojuego){ ?>
+            <div class="videogame">
+                <div class="img">
+                    <img src="/img/games/<?php echo $videojuego->id ?>.jpg" alt="imgGame">
+                </div>
+                <div class="name">
+                    <p><b>Nombre: </b><?php echo $videojuego->name ?></p>
+                </div>
+                <div class="genre">
+                    <p><b>Género: </b><?php echo $videojuego->genre ?></p>
+                </div>
+                <div class="release">
+                    <p><b>Año de lanzamiento: </b><?php echo $videojuego->release_year ?></p>
+                </div>
+                <div class="developer">
+                    <p><b>Desarrollador: </b><?php echo $videojuego->developer ?></p>
+                </div>
+                <div class="platforms">
+                    <p><b>Plataformas: </b><?php echo $videojuego->platforms ?></p>
+                </div>
+                <div class="button">
+                    <form method="post">';
+                        <input type="submit" name="eliminar<?php echo $videojuego->id ?>" class="delete" value="Eliminar de la lista"/>';
+                    </form>
+                </div>
+                <?php
+                    if (isset($_POST['eliminar'.$videojuego->id])) {
+                        $consulta = $db->prepare("DELETE FROM tFavGames WHERE id = ? AND type = ? "); //Sentencia para eliminar el juego de la lista
+                        $consulta->execute([$videojuego->id, 'H']); //Se ejecuta con una sentencia preparada
+                        header('location: My_games.php'); //Recarga la página para guardar los cambios
+                    }
+                ?>
+            </div>
+        <?php } ?>
+        </div>
     <h2>Abandonados</h2>
     <hr>
+    <?php
+        $consulta = $db->query("SELECT * FROM tFavGames WHERE type = :tipo ;"); // Consulta para mostrar los juegos abandonados
+        $consulta->execute([':tipo' => 'D']); //Se ejecuta con una sentencia preparada
+        $videojuegos = $consulta->fetchAll(PDO::FETCH_OBJ); //Devuelve todos los juegos abandonados
+    ?>
+    <div class="videogames">
+        <?php
+            foreach ($videojuegos as $videojuego){ ?>
+            <div class="videogame">
+                <div class="img">
+                    <img src="/img/games/<?php echo $videojuego->id ?>.jpg" alt="imgGame">
+                </div>
+                <div class="name">
+                    <p><b>Nombre: </b><?php echo $videojuego->name ?></p>
+                </div>
+                <div class="genre">
+                    <p><b>Género: </b><?php echo $videojuego->genre ?></p>
+                </div>
+                <div class="release">
+                    <p><b>Año de lanzamiento: </b><?php echo $videojuego->release_year ?></p>
+                </div>
+                <div class="developer">
+                    <p><b>Desarrollador: </b><?php echo $videojuego->developer ?></p>
+                </div>
+                <div class="platforms">
+                    <p><b>Plataformas: </b><?php echo $videojuego->platforms ?></p>
+                </div>
+                <div class="button">
+                    <form method="post">';
+                        <input type="submit" name="eliminar<?php echo $videojuego->id ?>" class="delete" value="Eliminar de la lista"/>';
+                    </form>
+                </div>
+                <?php
+                    if (isset($_POST['eliminar'.$videojuego->id])) {
+                        $consulta = $db->prepare("DELETE FROM tFavGames WHERE id = ? AND type = ? "); //Sentencia para eliminar el juego de la lista
+                        $consulta->execute([$videojuego->id, 'D']); //Se ejecuta con una sentencia preparada
+                        header('location: My_games.php'); //Recarga la página para guardar los cambios
+                    }
+                ?>
+            </div>
+        <?php } ?>
+        </div>
 </div>
 <div class="footer">
     <div class="copy"> 

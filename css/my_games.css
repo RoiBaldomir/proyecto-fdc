@@ -60,7 +60,49 @@ div.content hr{
     margin-left: 200px;
     margin-right: 200px;
 }
+div.content p{
+   color: lightgray;
+}
+div.videogames{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 100px;
+    margin-right: 100px;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+div.videogame{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    align-items: center;
+}
+div.videogame div.platforms p{
+    margin-bottom: 25px;
+}
 
+div.img img{
+    border: 1px solid lightgray;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    object-fit: fill;
+    max-width: 100%;
+    height: 300px;
+}
+div.button form input{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    border: none;
+    background: #333;
+    color: #f2f2f2;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    max-width: 100%;
+}
+div.button form input:hover{
+    opacity: 0.7;
+}
 /* Pie de página */
 div.footer{
     background-color:grey;
