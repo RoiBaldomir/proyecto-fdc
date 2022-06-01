@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-    include_once __DIR__ . "/db/db_connection.php";
+    include_once __DIR__ . "/db/db_connection.php"; //Se importa el archivo para permitir la conexión a la base de datos
 ?>
 
 <html lang="es-ES">
@@ -80,12 +80,14 @@
             <div>
             <?php
                 if (isset($_POST['contacto'])) {
+                    //Se recogen los valores del formulario
                     $name = $_POST['nombre'];
                     $email = $_POST['correo'];
                     $subject = $_POST['asunto'];
                     $message = $_POST['mensaje'];
-                    $consulta = $db->query("INSERT INTO tContact (name, email, subject, message) VALUES ('$name', '$email', '$subject', '$message')");
-                    echo '<p style="color: lightgray; text-align: center">!Mensaje enviado!, recibiras la respuesta en tu correo lo antes posible.</p>';
+                    $consulta = $db->prepare("INSERT INTO tContact (name, email, subject, message) VALUES (?, ?, ?, ?)"); //Consulta para introducir los datos del formulario en la base de datos
+                    $consulta->execute([$name, $email, $subject, $message]); //Se ejecuta con una sentencia preparada
+                    echo '<p class="success">!Mensaje enviado!, recibiras la respuesta en tu correo lo antes posible.</p>';
                 }
             ?>
             </div>       

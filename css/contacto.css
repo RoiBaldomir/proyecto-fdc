@@ -139,15 +139,18 @@ div.button button{
 div.button button:hover{
     opacity: 0.8;
 }
+p.success{
+    color: lightgray; 
+    text-align: center;
+    
+}
 /* Pie de página */
 div.footer{
     background-color:grey;
     display: flex;
     justify-content: space-around;
     align-items: baseline;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    margin-top: 68.5px; 
 }
 div.footer ul{
     display: flex;
