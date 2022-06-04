@@ -1,7 +1,12 @@
 <?php
     session_start();
-    
-    session_destroy();
 
-    header("Location: Index.php");
+    if (isset($_SESSION['username']) && isset($_SESSION['userid'])){
+    session_destroy();
+    header("Location: ./index.php");
+    }
+    else {
+        header("Location: ./login.php"); 
+    }
+    
 ?>
