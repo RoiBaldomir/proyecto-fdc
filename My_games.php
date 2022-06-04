@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="es-ES">
 <?php
-    include_once __DIR__ . "/db/db_connection.php"; //Se importa el archivo para permitir la conexión a la base de datos
+    require_once __DIR__ . "/db/db_connection.php"; //Se importa el archivo para permitir la conexión a la base de datos
+
+    session_start();
+    if (isset($_SESSION['username']) && isset($_SESSION['userid']))
+        $LOGGED_IN = true;
+    else
+        $LOGGED_IN = false;
 ?>
 <head>
     <meta charset="UTF-8"/>
@@ -33,29 +39,51 @@
             </div>
         </ul>
     </div>
-    <div class="login">
-        <ul>
-            <div>
-                <li><button><a href="Login.php">Inicia Sesión</a></button></li>
-            </div>
-            <div>
-                <li><button><a href="Register.php">Regístrate</a></button></li>
-            </div> 
-        </ul>
-    </div>
+    <?php
+            if ($LOGGED_IN == true) {
+                echo '<div class="login">';
+                echo "<p>Bienvenido <b>".$_SESSION['username']."</b> <button style='margin-left: 30px;'><a style='text-decoration: none; color: lightgrey' href='Logout.php'>Cerrar Sesión</a></button></p>";
+                echo '</div>';
+            }
+            else {
+        ?>
+        <div class="login">
+            <ul>
+                <div>
+                    <li><button><a href="Login.php">Inicia Sesión</a></button></li>
+                </div>
+                <div>
+                    <li><button><a href="Register.php">Regístrate</a></button></li>
+                </div> 
+            </ul>
+        </div>
+        <?php
+            }
+        ?>
 </div>
+<?php
+    if ($LOGGED_IN == TRUE){
+?>
 <div class="content">
     <h1>Mis Juegos</h1>
     <h2>Completados</h2>
     <hr>
     <?php
-        $consulta = $db->prepare("SELECT * FROM tFavGames WHERE type = :tipo;"); // Consulta para mostrar los juegos completados
-        $consulta->execute([':tipo' => 'C']); //Se ejecuta con una sentencia preparada
+        $sessionname = $_SESSION['username'];
+        $consulta = $db->prepare("SELECT * FROM tFavGames WHERE type = ? AND username = ? "); // Consulta para mostrar los juegos completados
+        $consulta->execute(['C', $sessionname]); //Se ejecuta con una sentencia preparada
         $videojuegos = $consulta->fetchAll(PDO::FETCH_OBJ); //Devuelve todos los juegos completados
     ?>
     <div class="videogames">
         <?php
             foreach ($videojuegos as $videojuego){ ?>
+            <?php
+                    if (isset($_POST['eliminar'.$videojuego->id])) {
+                        $consulta = $db->prepare("DELETE FROM tFavGames WHERE id = ? AND type = ? AND username = ? "); //Sentencia para eliminar el juego de la lista
+                        $consulta->execute([$videojuego->id, 'C', $sessionname]); //Se ejecuta con una sentencia preparada
+                        header('location: My_games.php'); //Recarga la página para guardar los cambios
+                    }
+            ?>
             <div class="videogame">
                 <div class="img">
                     <img src="/img/games/<?php echo $videojuego->id ?>.jpg" alt="imgGame">
@@ -80,26 +108,26 @@
                         <input type="submit" name="eliminar<?php echo $videojuego->id ?>" class="delete" value="Eliminar de la lista"/>';
                     </form>
                 </div>
-                <?php
-                    if (isset($_POST['eliminar'.$videojuego->id])) {
-                        $consulta = $db->prepare("DELETE FROM tFavGames WHERE id = ? AND type = ? "); //Sentencia para eliminar el juego de la lista
-                        $consulta->execute([$videojuego->id, 'C']); //Se ejecuta con una sentencia preparada
-                        header('location: My_games.php'); //Recarga la página para guardar los cambios
-                    }
-                ?>
             </div>
         <?php } ?>
         </div>
     <h2>En progreso</h2>
     <hr>
     <?php
-        $consulta = $db->query("SELECT * FROM tFavGames WHERE type = :tipo ;"); // Consulta para mostrar los juegos en progreso
-        $consulta->execute([':tipo' => 'IP']); //Se ejecuta con una sentencia preparada
+        $consulta = $db->query("SELECT * FROM tFavGames WHERE type = ? AND username = ? "); // Consulta para mostrar los juegos en progreso
+        $consulta->execute(['IP', $sessionname]); //Se ejecuta con una sentencia preparada
         $videojuegos = $consulta->fetchAll(PDO::FETCH_OBJ); //Devuelve todos los juegos en progreso
     ?>
     <div class="videogames">
         <?php
             foreach ($videojuegos as $videojuego){ ?>
+            <?php
+                    if (isset($_POST['eliminar'.$videojuego->id])) {
+                        $consulta = $db->prepare("DELETE FROM tFavGames WHERE id = ? AND type = ? AND username = ? "); //Sentencia para eliminar el juego de la lista
+                        $consulta->execute([$videojuego->id, 'IP', $sessionname]); //Se ejecuta con una sentencia preparada
+                        header('location: My_games.php'); //Recarga la página para guardar los cambios
+                    }
+            ?>
             <div class="videogame">
                 <div class="img">
                     <img src="/img/games/<?php echo $videojuego->id ?>.jpg" alt="imgGame">
@@ -124,26 +152,26 @@
                         <input type="submit" name="eliminar<?php echo $videojuego->id ?>" class="delete" value="Eliminar de la lista"/>';
                     </form>
                 </div>
-                <?php
-                    if (isset($_POST['eliminar'.$videojuego->id])) {
-                        $consulta = $db->prepare("DELETE FROM tFavGames WHERE id = ? AND type = ? "); //Sentencia para eliminar el juego de la lista
-                        $consulta->execute([$videojuego->id, 'IP']); //Se ejecuta con una sentencia preparada
-                        header('location: My_games.php'); //Recarga la página para guardar los cambios
-                    }
-                ?>
             </div>
         <?php } ?>
         </div>
     <h2>Pendientes de jugar</h2>
     <hr>
     <?php
-        $consulta = $db->query("SELECT * FROM tFavGames WHERE type = :tipo ;"); // Consulta para mostrar los juegos pendientes de jugar
-        $consulta->execute([':tipo' => 'H']); //Se ejecuta con una sentencia preparada
+        $consulta = $db->query("SELECT * FROM tFavGames WHERE type = ? AND username = ? "); // Consulta para mostrar los juegos pendientes de jugar
+        $consulta->execute(['H', $sessionname]); //Se ejecuta con una sentencia preparada
         $videojuegos = $consulta->fetchAll(PDO::FETCH_OBJ); //Devuelve todos los juegos pendientes de jugar
     ?>
     <div class="videogames">
         <?php
             foreach ($videojuegos as $videojuego){ ?>
+            <?php
+                    if (isset($_POST['eliminar'.$videojuego->id])) {
+                        $consulta = $db->prepare("DELETE FROM tFavGames WHERE id = ? AND type = ? AND username = ? "); //Sentencia para eliminar el juego de la lista
+                        $consulta->execute([$videojuego->id, 'H', $sessionname]); //Se ejecuta con una sentencia preparada
+                        header('location: My_games.php'); //Recarga la página para guardar los cambios
+                    }
+            ?>
             <div class="videogame">
                 <div class="img">
                     <img src="/img/games/<?php echo $videojuego->id ?>.jpg" alt="imgGame">
@@ -168,26 +196,26 @@
                         <input type="submit" name="eliminar<?php echo $videojuego->id ?>" class="delete" value="Eliminar de la lista"/>';
                     </form>
                 </div>
-                <?php
-                    if (isset($_POST['eliminar'.$videojuego->id])) {
-                        $consulta = $db->prepare("DELETE FROM tFavGames WHERE id = ? AND type = ? "); //Sentencia para eliminar el juego de la lista
-                        $consulta->execute([$videojuego->id, 'H']); //Se ejecuta con una sentencia preparada
-                        header('location: My_games.php'); //Recarga la página para guardar los cambios
-                    }
-                ?>
             </div>
         <?php } ?>
         </div>
     <h2>Abandonados</h2>
     <hr>
     <?php
-        $consulta = $db->query("SELECT * FROM tFavGames WHERE type = :tipo ;"); // Consulta para mostrar los juegos abandonados
-        $consulta->execute([':tipo' => 'D']); //Se ejecuta con una sentencia preparada
+        $consulta = $db->query("SELECT * FROM tFavGames WHERE type = ? AND username = ? "); // Consulta para mostrar los juegos abandonados
+        $consulta->execute(['D', $sessionname]); //Se ejecuta con una sentencia preparada
         $videojuegos = $consulta->fetchAll(PDO::FETCH_OBJ); //Devuelve todos los juegos abandonados
     ?>
     <div class="videogames">
         <?php
             foreach ($videojuegos as $videojuego){ ?>
+            <?php
+                    if (isset($_POST['eliminar'.$videojuego->id])) {
+                        $consulta = $db->prepare("DELETE FROM tFavGames WHERE id = ? AND type = ? AND username = ? "); //Sentencia para eliminar el juego de la lista
+                        $consulta->execute([$videojuego->id, 'D', $sessionname]); //Se ejecuta con una sentencia preparada
+                        header('location: My_games.php'); //Recarga la página para guardar los cambios
+                    }
+            ?>
             <div class="videogame">
                 <div class="img">
                     <img src="/img/games/<?php echo $videojuego->id ?>.jpg" alt="imgGame">
@@ -212,17 +240,18 @@
                         <input type="submit" name="eliminar<?php echo $videojuego->id ?>" class="delete" value="Eliminar de la lista"/>';
                     </form>
                 </div>
-                <?php
-                    if (isset($_POST['eliminar'.$videojuego->id])) {
-                        $consulta = $db->prepare("DELETE FROM tFavGames WHERE id = ? AND type = ? "); //Sentencia para eliminar el juego de la lista
-                        $consulta->execute([$videojuego->id, 'D']); //Se ejecuta con una sentencia preparada
-                        header('location: My_games.php'); //Recarga la página para guardar los cambios
-                    }
-                ?>
             </div>
         <?php } ?>
         </div>
 </div>
+<?php
+    }
+    else {
+        echo '<div class="content">';
+        echo '<h1 style="margin-bottom:36%; margin-top: 50px">Regístrate para poder ver esta página</h1>';
+        echo '</div>';
+    }
+?>
 <div class="footer">
     <div class="copy"> 
         <p>&copy; 2022 Roi Baldomir Ares</p>
