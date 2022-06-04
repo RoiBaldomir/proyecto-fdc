@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="es-ES">
 <?php
-    include_once __DIR__ . "/db/db_connection.php";
+    require_once __DIR__ . "/db/db_connection.php"; //Se importa el archivo para permitir la conexión a la base de datos
+
+    session_start();
+    if (isset($_SESSION['username']) && isset($_SESSION['userid']))
+        $LOGGED_IN = true;
+    else
+        $LOGGED_IN = false;
 ?>
 <head>
     <meta charset="UTF-8"/>
@@ -33,6 +39,14 @@
                 </div>
             </ul>
         </div>
+        <?php
+            if ($LOGGED_IN == true) {
+                echo '<div class="login">';
+                echo "<p>Bienvenido <b>".$_SESSION['username']."</b> <button style='margin-left: 30px;'><a style='text-decoration: none; color: lightgrey' href='Logout.php'>Cerrar Sesión</a></button></p>";
+                echo '</div>';
+            }
+            else {
+        ?>
         <div class="login">
             <ul>
                 <div>
@@ -43,16 +57,21 @@
                 </div> 
             </ul>
         </div>
+        <?php
+            }
+        ?>
     </div>
     <div class="content">
     <?php
-        $consulta = $db->query("SELECT * FROM tGames;");
-        $videojuegos = $consulta->fetchAll(PDO::FETCH_OBJ);
+        $consulta = $db->prepare("SELECT * FROM tGames;"); // Consulta para devolver la lista de todos los juegos
+        $consulta->execute(); //Se ejecuta con una sentencia preparada
+        $videojuegos = $consulta->fetchAll(PDO::FETCH_OBJ); //Devuelve todos los juegos
     ?>
         <h1>Bienvenido a GameList</h1>
+        <h2>Visita nuestra biblioteca de juegos</h2>
         <div class="videogames">
         <?php
-            foreach ($videojuegos as $videojuego){ ?>
+            foreach ($videojuegos as $videojuego){ //Bucle para mostrar en pantalla todos los juegos ?>
             <div class="videogame">
                 <div class="img">
                     <img src="/img/games/<?php echo $videojuego->id ?>.jpg" alt="imgGame">
@@ -72,12 +91,51 @@
                 <div class="platforms">
                     <p><b>Plataformas: </b><?php echo $videojuego->platforms ?></p>
                 </div>
+                <?php
+                    if ($LOGGED_IN == true) {
+                ?>
                 <div class="add">
-                    <button>Añadir a Mis Juegos</button>
+                    <!-- Formulario para elegir el estado en el que se quiere colocar el juego -->
+                    <form method="post">
+                        <div class="option">
+                            <label for="options<?php echo $videojuego->id ?>">Elige un estado: </label>
+                            <select name="options<?php echo $videojuego->id ?>" id="options">
+                                <option value="C">Completado</option>
+                                <option value="IP">En Progreso</option>
+                                <option value="H">Pendiente</option>
+                                <option value="D">Abandonado</option>
+                            </select>
+                        </div>
+                        <div class="button">
+                        <input type="submit" name="submit<?php echo $videojuego->id ?>" value="Añadir a mis juegos">
+                        <?php @$option = $_POST['options'.$videojuego->id]; //Se recoge el valor del select del formulario, es decir, el estado que se le va poner al juego ?> 
+                        </div>
+                        <?php
+                            if (isset($_POST['submit'.$videojuego->id])) {
+                                $sessionname = $_SESSION['username'];
+                                $id = $videojuego->id;
+                                $consulta = $db->prepare("SELECT * FROM tFavGames WHERE id = ? AND username = ? ");
+                                $consulta ->execute([$id, $sessionname]);
+                                $num_rows = $consulta ->fetchColumn();
+                                if ($num_rows == 0) {
+                                    $consulta = $db->prepare("INSERT INTO tFavGames (id, name, genre, platforms, developer, release_year, type, username) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)"); // Consulta para mandar el juego a la página Mis juegos
+                                    $consulta->execute([$videojuego->id, $videojuego->name, $videojuego->genre, $videojuego->platforms, $videojuego->developer, $videojuego->release_year, $option, $sessionname]); //Se ejecuta con una sentencia preparada
+                                    echo '<p style="margin-bottom: 50px; color: green !important;">Juego añadido correctamente</p>';
+                                }
+                                else {
+                                    echo '<p style="margin-bottom: 50px; color: red !important;">El juego ya se encuentra en tu lista</p>';
+                                }
+                            }
+                        ?> 
+                    </form>
                 </div>
+                <?php
+                    }
+                ?>
             </div>
         <?php } ?>
-        </div> 
+        </div>
     </div>
     <div class="footer">
         <div class="copy"> 
