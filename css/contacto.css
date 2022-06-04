@@ -150,7 +150,9 @@ div.footer{
     display: flex;
     justify-content: space-around;
     align-items: baseline;
-    margin-top: 68.5px; 
+    position: absolute;
+    bottom: 0;
+    width: 100%; 
 }
 div.footer ul{
     display: flex;

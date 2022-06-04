@@ -109,6 +109,8 @@ div.footer{
     display: flex;
     justify-content: space-around;
     align-items: baseline;
+    margin-top: 110px;
+    width: 100%;
 }
 div.footer ul{
     display: flex;
