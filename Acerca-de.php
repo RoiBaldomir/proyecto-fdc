@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+    session_start();
+    if (isset($_SESSION['username']) && isset($_SESSION['userid']))
+        $LOGGED_IN = true;
+    else
+        $LOGGED_IN = false;
+?>
 <html lang="es-ES">
 <head>
     <meta charset="UTF-8"/>
@@ -30,16 +37,27 @@
                 </div>
             </ul>
         </div>
+        <?php
+            if ($LOGGED_IN == true) {
+                echo '<div class="login">';
+                echo "<p>Bienvenido <b>".$_SESSION['username']."</b> <button style='margin-left: 30px;'><a style='text-decoration: none; color: lightgrey' href='Logout.php'>Cerrar Sesión</a></button></p>";
+                echo '</div>';
+            }
+            else {
+        ?>
         <div class="login">
             <ul>
                 <div>
                     <li><button><a href="Login.php">Inicia Sesión</a></button></li>
                 </div>
                 <div>
-                    <li><button><a href="Registro.php">Regístrate</a></button></li>
+                    <li><button><a href="Register.php">Regístrate</a></button></li>
                 </div> 
             </ul>
         </div>
+        <?php
+            }
+        ?>
     </div>
     <div class="content">
         <h1>Acerca de</h1>

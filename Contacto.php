@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <?php
     include_once __DIR__ . "/db/db_connection.php"; //Se importa el archivo para permitir la conexión a la base de datos
+
+    session_start();
+    if (isset($_SESSION['username']) && isset($_SESSION['userid']))
+        $LOGGED_IN = true;
+    else
+        $LOGGED_IN = false;
 ?>
 
 <html lang="es-ES">
@@ -12,7 +18,6 @@
     <link rel="stylesheet" href="css/contacto.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- <script src="js/contacto.js"></script> -->
 </head>
 <body>
     <div class="header">
@@ -35,16 +40,27 @@
                 </div>
             </ul>
         </div>
+        <?php
+            if ($LOGGED_IN == true) {
+                echo '<div class="login">';
+                echo "<p>Bienvenido <b>".$_SESSION['username']."</b> <button style='margin-left: 30px;'><a style='text-decoration: none; color: lightgrey' href='Logout.php'>Cerrar Sesión</a></button></p>";
+                echo '</div>';
+            }
+            else {
+        ?>
         <div class="login">
             <ul>
                 <div>
                     <li><button><a href="Login.php">Inicia Sesión</a></button></li>
                 </div>
                 <div>
-                    <li><button><a href="Registro.php">Regístrate</a></button></li>
+                    <li><button><a href="Register.php">Regístrate</a></button></li>
                 </div> 
             </ul>
         </div>
+        <?php
+            }
+        ?>
     </div>
     <div class="content">
         <h1>Contacto</h1>
