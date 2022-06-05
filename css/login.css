@@ -94,3 +94,8 @@ div.submit{
   flex-direction: column;
   align-items: center;
 }
+div.info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

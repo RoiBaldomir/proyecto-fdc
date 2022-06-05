@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+    session_start();
+    if (isset($_SESSION['username']) && isset($_SESSION['userid']))
+        $LOGGED_IN = true;
+    else
+        $LOGGED_IN = false;
+?>
 <html lang="es-ES">
 <head>
     <meta charset="UTF-8"/>
@@ -17,29 +24,40 @@
         <div class="menu">
             <ul>
                 <div>
-                    <li><a href="Index.html">Principal</a></li>
+                    <li><a href="Index.php">Principal</a></li>
                 </div>
                 <div>
-                    <li><a href="#">Mis Juegos</a></li>
+                    <li><a href="My_games.php">Mis Juegos</a></li>
                 </div>
                 <div>
-                    <li><a href="Contacto.html">Contacto</a></li>
+                    <li><a href="Contacto.php">Contacto</a></li>
                 </div>
                 <div>
-                    <li><a href="Acerca-de.html">Acerca de</a><li>
+                    <li><a href="Acerca-de.php">Acerca de</a><li>
                 </div>
             </ul>
         </div>
+        <?php
+            if ($LOGGED_IN == true) {
+                echo '<div class="login">';
+                echo "<p>Bienvenido <b>".$_SESSION['username']."</b> <button style='margin-left: 30px;'><a style='text-decoration: none; color: lightgrey' href='Logout.php'>Cerrar Sesión</a></button></p>";
+                echo '</div>';
+            }
+            else {
+        ?>
         <div class="login">
             <ul>
                 <div>
-                    <li><button><a href="Login.html">Inicia Sesión</a></button></li>
+                    <li><button><a href="Login.php">Inicia Sesión</a></button></li>
                 </div>
                 <div>
-                    <li><button><a href="Registro.html">Regístrate</a></button></li>
+                    <li><button><a href="Register.php">Regístrate</a></button></li>
                 </div> 
             </ul>
         </div>
+        <?php
+            }
+        ?>
     </div>
     <div class="content">
         <h1>Política de Privacidad del sitio web</h1>
@@ -131,9 +149,9 @@
         </div>
         <div class="links">
             <ul>
-                <li><a href="Privacidad.html">Política de Privacidad</a></li>
-                <li><a href="Cookies.html">Política de Cookies</a></li>
-                <li><a href="Aviso-legal.html">Aviso Legal</a></li>
+                <li><a href="Privacidad.php">Política de Privacidad</a></li>
+                <li><a href="Cookies.php">Política de Cookies</a></li>
+                <li><a href="Aviso-legal.php">Aviso Legal</a></li>
             </ul>
         </div>
         <div class="rrss">
