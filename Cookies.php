@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
-    session_start();
-    if (isset($_SESSION['username']) && isset($_SESSION['userid']))
+    session_start(); //Se inicia la sesión
+    if (isset($_SESSION['username']) && isset($_SESSION['userid'])) //Se comprueba si el usuario está registrado
         $LOGGED_IN = true;
     else
         $LOGGED_IN = false;
@@ -38,7 +38,7 @@
             </ul>
         </div>
         <?php
-            if ($LOGGED_IN == true) {
+            if ($LOGGED_IN == true) { //Si está registrado se muestra el botón de cerrar sesión, si no, el de iniciar sesión y registro
                 echo '<div class="login">';
                 echo "<p>Bienvenido <b>".$_SESSION['username']."</b> <button style='margin-left: 30px;'><a style='text-decoration: none; color: lightgrey' href='Logout.php'>Cerrar Sesión</a></button></p>";
                 echo '</div>';

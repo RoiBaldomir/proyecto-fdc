@@ -2,8 +2,8 @@
 <?php
     require_once __DIR__ . "/db/db_connection.php"; //Se añade la conexión a la base de datos
     session_start(); //Se inicia la sesión
-    if (isset($_SESSION['username']) && isset($_SESSION['userid'])) 
-        header("Location: ./Index.php");  // redirect the user to the home page
+    if (isset($_SESSION['username']) && isset($_SESSION['userid'])) //Se comprueba la sesión
+        header("Location: ./Index.php");  //Redirige al usuario a la pagina principal
 ?>
 <html lang="es-ES">
 <head>
@@ -29,25 +29,26 @@
                 
                 //Se asegura que los campos no vayan vacios
                 if ($username != "" && $password != "") { 
-                    $consulta = $db->prepare("SELECT count(*) FROM tUsers WHERE username = ? ");
-                    $consulta ->execute([$username]);
-                    $num_rows = $consulta ->fetchColumn();
+                    $consulta = $db->prepare("SELECT count(*) FROM tUsers WHERE username = ? "); // Consulta para comprobar las filas
+                    $consulta ->execute([$username]); //Se ejecuta con una sentencia preparada
+                    $num_rows = $consulta ->fetchColumn(); //Devuelve el número de filas
 
-                    if ($num_rows == 1) {
-                        $consulta = $db->prepare("SELECT * FROM tUsers WHERE username = ? ");
-                        $consulta ->execute([$username]);
+                    if ($num_rows == 1) { //Si hay coincidencia se busca el usuario correspondiente
+                        $consulta = $db->prepare("SELECT * FROM tUsers WHERE username = ? "); //Consulta para encontrar el usuario en la BBDD
+                        $consulta ->execute([$username]); //Se ejecuta con una sentencia preparada
                         $record = $consulta->fetch(PDO::FETCH_ASSOC);
                         
-                        $password = md5($password);
+                        $password = md5($password); //Se comprueba la contraseña hasheada
                         
-                        if ($password === $record["password"]) {
+                        if ($password === $record["password"]) { //Si las contraseñas coinciden el usuario inicia sesión
                             if ($record["status"] == 1) {
+                                //Se añaden los valores a la variable de sesión
                                 $_SESSION["username"] = $record["username"];
                                 $_SESSION["userid"] = $record["userid"];
                                 
                                 $success = true;
                                 
-                                header("Location: ./Index.php");
+                                header("Location: ./Index.php"); //Se redirige al usuario a la página principal
                             }
                             else {
                                 $error_msg = 'Activa tu cuenta, por favor';
@@ -94,13 +95,11 @@
                     </div>
                     <div class="info">
                     <?php
-                        // check to see if the user successfully created an account
                         if (isset($success) && $success = true){
-                        echo '<p style="color: green">You have logged in. Please go to the <a href="./Index.php">home page</a>.<p>';
+                        echo '<p style="color: green">Inicio de sesión OK<p>'; //Mensaje de OK
                         }
-                        // check to see if the error message is set, if so display it
                         else if (isset($error_msg))
-                        echo '<p style="color: red">'.$error_msg.'</p>'; 
+                        echo '<p style="color: red">'.$error_msg.'</p>'; //Se muestran los mensajes de error
                     ?>
                     </div>
                 </ul>

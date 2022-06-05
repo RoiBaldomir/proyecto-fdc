@@ -3,8 +3,8 @@
 <?php
     require_once __DIR__ . "/db/db_connection.php"; //Se importa el archivo para permitir la conexión a la base de datos
 
-    session_start();
-    if (isset($_SESSION['username']) && isset($_SESSION['userid']))
+    session_start(); //Se inicia la sesión
+    if (isset($_SESSION['username']) && isset($_SESSION['userid'])) //Se comprueba si el usuario está registrado
         $LOGGED_IN = true;
     else
         $LOGGED_IN = false;
@@ -40,7 +40,7 @@
             </ul>
         </div>
         <?php
-            if ($LOGGED_IN == true) {
+            if ($LOGGED_IN == true) { //Si está registrado se muestra el botón de cerrar sesión, si no, el de iniciar sesión y registro
                 echo '<div class="login">';
                 echo "<p>Bienvenido <b>".$_SESSION['username']."</b> <button style='margin-left: 30px;'><a style='text-decoration: none; color: lightgrey' href='Logout.php'>Cerrar Sesión</a></button></p>";
                 echo '</div>';
@@ -111,20 +111,21 @@
                         <?php @$option = $_POST['options'.$videojuego->id]; //Se recoge el valor del select del formulario, es decir, el estado que se le va poner al juego ?> 
                         </div>
                         <?php
+                            // Se comprueba que recibe el valor del formulario
                             if (isset($_POST['submit'.$videojuego->id])) {
                                 $sessionname = $_SESSION['username'];
                                 $id = $videojuego->id;
-                                $consulta = $db->prepare("SELECT * FROM tFavGames WHERE id = ? AND username = ? ");
-                                $consulta ->execute([$id, $sessionname]);
+                                $consulta = $db->prepare("SELECT * FROM tFavGames WHERE id = ? AND username = ? "); //Consulta para comprobar que no se repitan juegos en la lista
+                                $consulta ->execute([$id, $sessionname]); //Se ejecuta con una sentencia preparada
                                 $num_rows = $consulta ->fetchColumn();
-                                if ($num_rows == 0) {
+                                if ($num_rows == 0) { //Si no está el juego se inserta
                                     $consulta = $db->prepare("INSERT INTO tFavGames (id, name, genre, platforms, developer, release_year, type, username) 
                                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)"); // Consulta para mandar el juego a la página Mis juegos
                                     $consulta->execute([$videojuego->id, $videojuego->name, $videojuego->genre, $videojuego->platforms, $videojuego->developer, $videojuego->release_year, $option, $sessionname]); //Se ejecuta con una sentencia preparada
-                                    echo '<p style="margin-bottom: 50px; color: green !important;">Juego añadido correctamente</p>';
+                                    echo '<p style="margin-bottom: 50px; color: green !important;">Juego añadido correctamente</p>'; //Mensaje de OK
                                 }
                                 else {
-                                    echo '<p style="margin-bottom: 50px; color: red !important;">El juego ya se encuentra en tu lista</p>';
+                                    echo '<p style="margin-bottom: 50px; color: red !important;">El juego ya se encuentra en tu lista</p>'; //Mensaje de error
                                 }
                             }
                         ?> 

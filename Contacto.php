@@ -2,8 +2,8 @@
 <?php
     include_once __DIR__ . "/db/db_connection.php"; //Se importa el archivo para permitir la conexión a la base de datos
 
-    session_start();
-    if (isset($_SESSION['username']) && isset($_SESSION['userid']))
+    session_start(); //Se inicia la sesión
+    if (isset($_SESSION['username']) && isset($_SESSION['userid'])) //se comprueba si el usuario está registrado
         $LOGGED_IN = true;
     else
         $LOGGED_IN = false;
@@ -41,7 +41,7 @@
             </ul>
         </div>
         <?php
-            if ($LOGGED_IN == true) {
+            if ($LOGGED_IN == true) { //Si está registrado se muestra el botón de cerrar sesión, si no, el de iniciar sesión y registro
                 echo '<div class="login">';
                 echo "<p>Bienvenido <b>".$_SESSION['username']."</b> <button style='margin-left: 30px;'><a style='text-decoration: none; color: lightgrey' href='Logout.php'>Cerrar Sesión</a></button></p>";
                 echo '</div>';
@@ -95,6 +95,7 @@
             </div>
             <div>
             <?php
+                //Se comprueba que existe el envío del formulario
                 if (isset($_POST['contacto'])) {
                     //Se recogen los valores del formulario
                     $name = $_POST['nombre'];
@@ -102,13 +103,13 @@
                     $subject = $_POST['asunto'];
                     $message = $_POST['mensaje'];
 
-                    if ($name!= "" && $email != "" && $message !="") {
+                    if ($name!= "" && $email != "" && $message !="") { //Se comprueba que los campos no estén vacios
                         $consulta = $db->prepare("INSERT INTO tContact (name, email, subject, message) VALUES (?, ?, ?, ?)"); //Consulta para introducir los datos del formulario en la base de datos
                         $consulta->execute([$name, $email, $subject, $message]); //Se ejecuta con una sentencia preparada
-                        echo '<p class="success">!Mensaje enviado!, recibiras una respuesta lo antes posible.</p>';
+                        echo '<p class="success">!Mensaje enviado!, recibiras una respuesta lo antes posible.</p>'; //Mensaje de OK
                     }
                     else {
-                        echo '<p class="error">Por favor, rellena todos los campos requeridos</p>';
+                        echo '<p class="error">Por favor, rellena todos los campos requeridos</p>'; //Mensaje de error
                     }     
                 }
             ?>

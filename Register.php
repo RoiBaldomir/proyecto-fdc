@@ -2,8 +2,8 @@
 <?php
     require_once __DIR__ . "/db/db_connection.php"; //Se añade la conexión a la base de datos
     session_start(); //Se inicia la sesión
-    if (isset($_SESSION['username']) && isset($_SESSION['userid'])) 
-        header("Location: ./Index.php");  // redirect the user to the home page
+    if (isset($_SESSION['username']) && isset($_SESSION['userid'])) //Se comprueba la sesión
+        header("Location: ./Index.php");  //Redirige al usuario a la pagina principal
 ?>
 <html lang="es-ES">
 <head>
@@ -31,22 +31,22 @@
                 $email = $_POST['email']; 
                 $password = $_POST['password']; 
                 $cpassword = $_POST['cpassword'];
-
+                //Se comprueba que los valores del formulario no estén vacios
                 if ($username != "" && $name != "" && $password != "" && $cpassword != "" && $email != "") {
-                    // make sure the two passwords match
+                    //Se comprueba que las contraseñas coincidan
                     if ($password === $cpassword) {
-                        // make sure the password meets the min strength requirements
+                        //Se comprueba que la contraseña sea mayor o igual a 6 carácteres
                         if (strlen($password) >= 6) {
-                            $consulta = $db->prepare("SELECT * FROM tUsers WHERE username = ? ");
-                            $consulta ->execute([$username]);
-                            $num_rows = $consulta ->fetchColumn();
+                            $consulta = $db->prepare("SELECT * FROM tUsers WHERE username = ? "); //Consulta para comprobar si existe el usuario
+                            $consulta ->execute([$username]); //Se ejecuta con una sentencia preparada
+                            $num_rows = $consulta ->fetchColumn(); //Se comprueban las columnas
 
-                            if ($num_rows == 0) {
-                                $password = md5($password);
+                            if ($num_rows == 0) { //Si no existe se crea el usuario correctamente
+                                $password = md5($password); //Se hashea la contraseña
                                 $status = 1;
     
-                                $consulta = $db->prepare("INSERT INTO tUsers (name, username, email, password, status) VALUES (?, ?, ?, ?, ?)"); 
-                                $consulta->execute([$name, $username, $email, $password, $status]);
+                                $consulta = $db->prepare("INSERT INTO tUsers (name, username, email, password, status) VALUES (?, ?, ?, ?, ?)"); //Se inserta el usuario en la BBDD
+                                $consulta->execute([$name, $username, $email, $password, $status]); //Se ejecuta con una sentencia preparada
         
                                 $success = true;
                             }
@@ -107,11 +107,11 @@
                     </div>
                     <div class="info">
                     <?php
-                        // check to see if the user successfully created an account
+                        //Mensaje de OK
                         if (isset($success) && $success == true){
                             echo '<p style="color: green">Tu cuenta ha sido creada.</p>';
                         }
-                        // check to see if the error message is set, if so display it
+                        //Mensaje de errores
                         else if (isset($error_msg))
                             echo '<p style="color: red">'.$error_msg.'</p>';
                     ?>
