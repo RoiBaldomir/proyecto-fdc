@@ -140,9 +140,12 @@ div.button button:hover{
     opacity: 0.8;
 }
 p.success{
-    color: lightgray; 
+    color: green; 
     text-align: center;
-    
+}
+p.error{
+    color: red;
+    text-align: center;
 }
 /* Pie de página */
 div.footer{
@@ -150,9 +153,7 @@ div.footer{
     display: flex;
     justify-content: space-around;
     align-items: baseline;
-    position: absolute;
-    bottom: 0;
-    width: 100%; 
+    margin-top: 70px; 
 }
 div.footer ul{
     display: flex;

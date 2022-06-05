@@ -101,9 +101,15 @@
                     $email = $_POST['correo'];
                     $subject = $_POST['asunto'];
                     $message = $_POST['mensaje'];
-                    $consulta = $db->prepare("INSERT INTO tContact (name, email, subject, message) VALUES (?, ?, ?, ?)"); //Consulta para introducir los datos del formulario en la base de datos
-                    $consulta->execute([$name, $email, $subject, $message]); //Se ejecuta con una sentencia preparada
-                    echo '<p class="success">!Mensaje enviado!, recibiras la respuesta en tu correo lo antes posible.</p>';
+
+                    if ($name!= "" && $email != "" && $message !="") {
+                        $consulta = $db->prepare("INSERT INTO tContact (name, email, subject, message) VALUES (?, ?, ?, ?)"); //Consulta para introducir los datos del formulario en la base de datos
+                        $consulta->execute([$name, $email, $subject, $message]); //Se ejecuta con una sentencia preparada
+                        echo '<p class="success">!Mensaje enviado!, recibiras una respuesta lo antes posible.</p>';
+                    }
+                    else {
+                        echo '<p class="error">Por favor, rellena todos los campos requeridos</p>';
+                    }     
                 }
             ?>
             </div>       
