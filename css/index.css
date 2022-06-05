@@ -1,0 +1,164 @@
+body {
+    background-color: #15172b;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    margin: 0 auto;
+}
+
+/* Menú */
+div.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: gray;
+}
+div.logo img{
+    width: 100px;
+}
+ul{
+    list-style-type: none;
+    display:flex;
+}
+div.menu ul a{
+    text-decoration: none;
+    color: black;
+    padding: 1em;
+    background-color: gray;
+    font-weight: bold;
+}
+div.menu ul a:hover{
+    opacity: 0.6;
+}
+div.login button{
+    padding: 0.6em;
+    background-color: #15172b;
+    border-radius: 0.7em;
+}
+div.login button:hover{
+    opacity: 0.8;
+}
+div.login ul a{
+    text-decoration: none;
+    color:white;
+}
+div.login li{
+    padding-right: 0.5em;
+}
+
+/* Cuerpo */
+div.content{
+    margin-top: 50px;
+}
+div.content h1{
+    color: lightgray;
+    text-align:center;
+    margin-bottom: 20px;
+}
+div.content h2{
+    color: lightgray;
+    text-align:center;
+    margin-bottom: 30px;
+}
+div.content p{
+    color: lightgray;
+    text-align:center;
+}
+div.videogames{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 100px;
+    margin-right: 100px;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+div.videogame{
+    border-bottom: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    align-items: center;
+}
+div.videogame div.platforms p{
+    margin-bottom: 25px;
+}
+
+div.img img{
+    border: 1px solid lightgray;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    object-fit: fill;
+    max-width: 100%;
+    height: 300px;
+}
+div.add {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+div.add div.option{
+    color: lightgray;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+div.add div.option{
+    display: flex;
+    gap:10px;
+}
+div.add div.option select{
+    background: #333;
+    color: #f2f2f2;
+}
+div.add form input{
+    margin-top: 10px;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    border: none;
+    background: #333;
+    color: #f2f2f2;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    max-width: 100%;
+}
+div.add form input:hover{
+    opacity: 0.7;
+}
+
+/* Pie de página */
+div.footer{
+    background-color:grey;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+div.footer ul{
+    display: flex;
+    flex-direction: column;
+}
+div.footer a{
+    text-decoration: none;
+    color: black;
+}
+div.copy p{
+    font-weight: bold
+}
+div.links a:hover{
+    opacity: 0.6;
+}
+div.rrss{
+    display: flex;
+    flex-direction: column;
+    justify-content:baseline;
+}
+div.rrss div.rrsslinks{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+div.rrss div.rrsslinks a:hover{
+    opacity: 0.5;
+}
+div.rrss div.rrsslinks a{
+    padding-bottom: 20px;
+}
